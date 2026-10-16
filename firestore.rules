@@ -1,0 +1,65 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global Safety Net: Default-deny all documents
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isValidScan(data, userId) {
+      return data.keys().hasAll(['userId', 'title', 'text', 'createdAt', 'engine']) &&
+        data.keys().hasOnly(['id', 'userId', 'title', 'text', 'createdAt', 'updatedAt', 'engine', 'language', 'characterCount', 'wordCount', 'thumbnailUrl']) &&
+        data.userId == request.auth.uid &&
+        data.userId == userId &&
+        data.title is string && data.title.size() > 0 && data.title.size() <= 200 &&
+        data.text is string && data.text.size() <= 100000 &&
+        data.engine in ['cloud', 'tesseract'] &&
+        (!('language' in data) || (data.language is string && data.language.size() <= 40)) &&
+        (!('characterCount' in data) || (data.characterCount is number)) &&
+        (!('wordCount' in data) || (data.wordCount is number)) &&
+        (!('thumbnailUrl' in data) || (data.thumbnailUrl is string && data.thumbnailUrl.size() <= 150000)) &&
+        (!('id' in data) || (isValidId(data.id)));
+    }
+
+    // User Scans Collection: /users/{userId}/scans/{scanId}
+    match /users/{userId}/scans/{scanId} {
+      allow get: if isOwner(userId) && isValidId(scanId);
+      allow list: if isOwner(userId);
+      allow create: if isOwner(userId) &&
+        isValidId(scanId) &&
+        isValidScan(incoming(), userId) &&
+        incoming().createdAt == request.time;
+      allow update: if isOwner(userId) &&
+        isValidId(scanId) &&
+        isValidScan(incoming(), userId) &&
+        incoming().userId == existing().userId &&
+        incoming().createdAt == existing().createdAt &&
+        incoming().diff(existing()).affectedKeys().hasOnly(['title', 'text', 'updatedAt', 'characterCount', 'wordCount', 'language']) &&
+        (!('updatedAt' in incoming()) || incoming().updatedAt == request.time);
+      allow delete: if isOwner(userId) && isValidId(scanId);
+    }
+  }
+}

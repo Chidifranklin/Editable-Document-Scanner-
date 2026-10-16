@@ -1,0 +1,62 @@
+{
+  "entities": {
+    "Scan": {
+      "title": "Scan",
+      "description": "An extracted text scan document belonging to an authenticated user",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "userId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "text": {
+          "type": "string",
+          "maxLength": 100000
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "engine": {
+          "type": "string",
+          "enum": ["cloud", "tesseract"]
+        },
+        "language": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "characterCount": {
+          "type": "number"
+        },
+        "wordCount": {
+          "type": "number"
+        },
+        "thumbnailUrl": {
+          "type": "string",
+          "maxLength": 150000
+        }
+      },
+      "required": ["userId", "title", "text", "createdAt", "engine"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/scans/{scanId}": {
+      "schema": "Scan",
+      "description": "User specific scans with extracted text, createdAt timestamp, and document metadata"
+    }
+  }
+}

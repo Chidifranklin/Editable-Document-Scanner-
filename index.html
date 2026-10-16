@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>ScanText</title>
+    <meta name="description" content="Mobile-first Progressive Web App for smart document scanning, handwriting OCR, AI cleanup, export to DOCX/TXT, and cloud history syncing." />
+    <meta property="og:title" content="ScanText" />
+    <meta property="og:description" content="Mobile-first Progressive Web App for smart document scanning, handwriting OCR, AI cleanup, export to DOCX/TXT, and cloud history syncing." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#2563eb" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="ScanText" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <script>
+      // Gracefully handle Vite HMR WebSocket in preview iframe
+      (function() {
+        var _origError = console.error;
+        console.error = function() {
+          var args = Array.prototype.slice.call(arguments);
+          var msg = args.map(function(a) { return String(a && (a.stack || a.message) || a); }).join(' ');
+          if (msg.indexOf('WebSocket') !== -1 || (msg.indexOf('[vite]') !== -1 && msg.indexOf('closed') !== -1)) {
+            return;
+          }
+          return _origError.apply(console, args);
+        };
+
+        var _OrigWebSocket = window.WebSocket;
+        if (_OrigWebSocket) {
+          window.WebSocket = function(url, protocols) {
+            if (protocols === 'vite-hmr' || (typeof url === 'string' && url.indexOf('vite-hmr') !== -1)) {
+              var listeners = {};
+              var dummy = {
+                readyState: 1,
+                send: function() {},
+                close: function() {},
+                addEventListener: function(evt, fn) {
+                  listeners[evt] = listeners[evt] || [];
+                  listeners[evt].push(fn);
+                  if (evt === 'open') {
+                    setTimeout(function() { fn({ type: 'open' }); }, 5);
+                  }
+                },
+                removeEventListener: function(evt, fn) {
+                  if (listeners[evt]) {
+                    listeners[evt] = listeners[evt].filter(function(f) { return f !== fn; });
+                  }
+                },
+                onopen: null,
+                onmessage: null,
+                onerror: null,
+                onclose: null
+              };
+              setTimeout(function() {
+                if (typeof dummy.onopen === 'function') dummy.onopen({ type: 'open' });
+              }, 5);
+              return dummy;
+            }
+            return new _OrigWebSocket(url, protocols);
+          };
+          window.WebSocket.prototype = _OrigWebSocket.prototype;
+          window.WebSocket.CONNECTING = _OrigWebSocket.CONNECTING;
+          window.WebSocket.OPEN = _OrigWebSocket.OPEN;
+          window.WebSocket.CLOSING = _OrigWebSocket.CLOSING;
+          window.WebSocket.CLOSED = _OrigWebSocket.CLOSED;
+        }
+
+        window.addEventListener('error', function(event) {
+          if (event.message && (event.message.indexOf('WebSocket') !== -1 || event.message.indexOf('vite-hmr') !== -1)) {
+            event.stopImmediatePropagation();
+            event.preventDefault();
+          }
+        });
+        window.addEventListener('unhandledrejection', function(event) {
+          if (event.reason && String(event.reason).indexOf('WebSocket') !== -1) {
+            event.stopImmediatePropagation();
+            event.preventDefault();
+          }
+        });
+      })();
+    </script>
+  </head>
+  <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 antialiased selection:bg-blue-500 selection:text-white">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

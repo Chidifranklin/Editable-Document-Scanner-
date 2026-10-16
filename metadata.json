@@ -1,0 +1,10 @@
+{
+  "name": "ScanText",
+  "description": "Mobile-first Progressive Web App for smart document scanning, handwriting OCR, AI cleanup, export to DOCX/TXT, and cloud history syncing.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
