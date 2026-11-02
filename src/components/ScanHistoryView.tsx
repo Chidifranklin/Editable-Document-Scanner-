@@ -123,7 +123,7 @@ export const ScanHistoryView: React.FC<ScanHistoryViewProps> = ({
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search documents by title or text..."
-              className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none dark:border-slate-800 dark:bg-slate-900 dark:text-white"
+              className="w-full rounded-xl border border-[#E8E0D0] bg-[#FFFDF8] py-2 pl-9 pr-3 text-xs text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none dark:border-slate-800 dark:bg-slate-900 dark:text-white"
             />
             {searchTerm && (
               <button
@@ -135,12 +135,12 @@ export const ScanHistoryView: React.FC<ScanHistoryViewProps> = ({
             )}
           </div>
 
-          <div className="flex items-center rounded-xl bg-slate-100 p-1 dark:bg-slate-800 shrink-0">
+          <div className="flex items-center rounded-xl bg-[#F3EDE0] p-1 dark:bg-slate-800 shrink-0">
             <button
               onClick={() => setEngineFilter('all')}
               className={`rounded-lg px-2.5 py-1 text-xs font-medium transition ${
                 engineFilter === 'all'
-                  ? 'bg-white text-slate-900 shadow-xs dark:bg-slate-700 dark:text-white'
+                  ? 'bg-[#FFFDF8] text-slate-900 shadow-xs dark:bg-slate-700 dark:text-white'
                   : 'text-slate-600 dark:text-slate-400'
               }`}
             >
@@ -150,7 +150,7 @@ export const ScanHistoryView: React.FC<ScanHistoryViewProps> = ({
               onClick={() => setEngineFilter('cloud')}
               className={`flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-medium transition ${
                 engineFilter === 'cloud'
-                  ? 'bg-white text-blue-600 shadow-xs dark:bg-slate-700 dark:text-blue-400'
+                  ? 'bg-[#FFFDF8] text-blue-600 shadow-xs dark:bg-slate-700 dark:text-blue-400'
                   : 'text-slate-600 dark:text-slate-400'
               }`}
             >
@@ -161,7 +161,7 @@ export const ScanHistoryView: React.FC<ScanHistoryViewProps> = ({
               onClick={() => setEngineFilter('tesseract')}
               className={`flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-medium transition ${
                 engineFilter === 'tesseract'
-                  ? 'bg-white text-emerald-600 shadow-xs dark:bg-slate-700 dark:text-emerald-400'
+                  ? 'bg-[#FFFDF8] text-emerald-600 shadow-xs dark:bg-slate-700 dark:text-emerald-400'
                   : 'text-slate-600 dark:text-slate-400'
               }`}
             >
@@ -202,10 +202,10 @@ export const ScanHistoryView: React.FC<ScanHistoryViewProps> = ({
               <div
                 key={scan.id}
                 onClick={() => onSelectScan(scan)}
-                className="group relative flex items-center justify-between gap-3 rounded-2xl border border-slate-200/90 bg-white p-3 shadow-xs hover:border-blue-400 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-blue-500 cursor-pointer active:scale-99 transition"
+                className="group relative flex items-center justify-between gap-3 rounded-2xl border border-[#E8E0D0] bg-[#FFFDF8] p-3 shadow-xs hover:border-blue-400 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-blue-500 cursor-pointer active:scale-99 transition"
               >
                 {/* Thumbnail */}
-                <div className="h-16 w-14 shrink-0 overflow-hidden rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-slate-200/60 dark:border-slate-800">
+                <div className="h-16 w-14 shrink-0 overflow-hidden rounded-xl bg-[#F3EDE0] dark:bg-slate-800 flex items-center justify-center border border-[#E8E0D0] dark:border-slate-800">
                   {scan.thumbnailUrl ? (
                     <img
                       src={scan.thumbnailUrl}

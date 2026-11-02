@@ -221,9 +221,9 @@ export const ScanResultView: React.FC<ScanResultViewProps> = ({
   const currentLangObj = SUPPORTED_LANGUAGES.find((l) => l.code === selectedLanguage);
 
   return (
-    <div className="flex flex-col h-[calc(100vh-60px)] max-w-4xl mx-auto bg-slate-50 dark:bg-slate-950">
+    <div className="flex flex-col h-[calc(100vh-60px)] max-w-4xl mx-auto bg-[#FAF6EE] dark:bg-slate-950">
       {/* Top Bar with Title, Engine badge and Quick Actions */}
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 bg-white px-3 py-2.5 sm:px-4 dark:border-slate-800 dark:bg-slate-900">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#E8E0D0] bg-[#FFFDF8] px-3 py-2.5 sm:px-4 dark:border-slate-800 dark:bg-slate-900">
         <div className="flex flex-1 items-center gap-2 min-w-[200px]">
           <input
             type="text"
@@ -249,7 +249,7 @@ export const ScanResultView: React.FC<ScanResultViewProps> = ({
         {/* Rescan / Engine Selector Toggle */}
         <div className="flex items-center gap-1.5">
           {/* Language Selector */}
-          <div className="flex items-center gap-1 rounded-lg border border-slate-200 bg-slate-50 px-2 py-1 text-xs dark:border-slate-800 dark:bg-slate-800">
+          <div className="flex items-center gap-1 rounded-lg border border-[#E8E0D0] bg-[#F3EDE0]/70 px-2 py-1 text-xs dark:border-slate-800 dark:bg-slate-800">
             <Globe className="h-3.5 w-3.5 text-slate-400" />
             <select
               value={selectedLanguage}
@@ -304,7 +304,7 @@ export const ScanResultView: React.FC<ScanResultViewProps> = ({
 
           <button
             onClick={onNewScan}
-            className="rounded-lg bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 transition"
+            className="rounded-lg bg-[#F3EDE0] px-2.5 py-1 text-xs font-semibold text-slate-700 hover:bg-[#E8E0D0] dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 transition"
           >
             New Scan
           </button>
@@ -313,7 +313,7 @@ export const ScanResultView: React.FC<ScanResultViewProps> = ({
 
       {/* Multi-Page Batch Selector Strip */}
       {pageResults && pageResults.length > 1 && (
-        <div className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 overflow-x-auto text-xs">
+        <div className="flex items-center gap-1.5 px-3 py-1.5 bg-[#F3EDE0] dark:bg-slate-800 border-b border-[#E8E0D0] dark:border-slate-700 overflow-x-auto text-xs">
           <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider shrink-0">
             Batch Pages ({pageResults.length}):
           </span>
@@ -369,7 +369,7 @@ export const ScanResultView: React.FC<ScanResultViewProps> = ({
       {/* Main Content Area: Side-by-side on tablet/desktop, stacked on mobile */}
       <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
         {/* Left Side: Thumbnail of Original Scanned Image */}
-        <div className="md:w-72 lg:w-80 flex-shrink-0 border-b md:border-b-0 md:border-r border-slate-200 dark:border-slate-800 bg-slate-100/70 dark:bg-slate-900/40 p-3 sm:p-4 flex flex-col justify-between">
+        <div className="md:w-72 lg:w-80 flex-shrink-0 border-b md:border-b-0 md:border-r border-[#E8E0D0] dark:border-slate-800 bg-[#F3EDE0]/60 dark:bg-slate-900/40 p-3 sm:p-4 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
@@ -409,7 +409,7 @@ export const ScanResultView: React.FC<ScanResultViewProps> = ({
 
             {/* Text Stats */}
             <div className="mt-3 grid grid-cols-2 gap-2 text-center">
-              <div className="rounded-lg bg-white p-2 border border-slate-200/80 dark:border-slate-800 dark:bg-slate-800/80">
+              <div className="rounded-lg bg-[#FFFDF8] p-2 border border-[#E8E0D0] dark:border-slate-800 dark:bg-slate-800/80">
                 <span className="block text-[10px] text-slate-500 dark:text-slate-400 uppercase font-semibold">
                   Characters
                 </span>
@@ -417,7 +417,7 @@ export const ScanResultView: React.FC<ScanResultViewProps> = ({
                   {text.length}
                 </span>
               </div>
-              <div className="rounded-lg bg-white p-2 border border-slate-200/80 dark:border-slate-800 dark:bg-slate-800/80">
+              <div className="rounded-lg bg-[#FFFDF8] p-2 border border-[#E8E0D0] dark:border-slate-800 dark:bg-slate-800/80">
                 <span className="block text-[10px] text-slate-500 dark:text-slate-400 uppercase font-semibold">
                   Words
                 </span>
@@ -504,15 +504,15 @@ export const ScanResultView: React.FC<ScanResultViewProps> = ({
         </div>
 
         {/* Right Side: Tabbed Interface for Editable Text Area & Data Patterns */}
-        <div className="flex-1 flex flex-col p-3 sm:p-4 overflow-hidden bg-white dark:bg-slate-900">
-          <div className="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 dark:border-slate-800">
+        <div className="flex-1 flex flex-col p-3 sm:p-4 overflow-hidden bg-[#FFFDF8] dark:bg-slate-900">
+          <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#EAE2D3] dark:border-slate-800">
             {/* View Tabs: Edit Text vs Identified Patterns */}
-            <div className="flex items-center rounded-xl bg-slate-100 p-1 dark:bg-slate-800">
+            <div className="flex items-center rounded-xl bg-[#F3EDE0] p-1 dark:bg-slate-800">
               <button
                 onClick={() => setViewTab('editor')}
                 className={`flex items-center gap-1.5 rounded-lg px-3 py-1 text-xs font-semibold transition ${
                   viewTab === 'editor'
-                    ? 'bg-white text-blue-600 shadow-xs dark:bg-slate-700 dark:text-blue-400'
+                    ? 'bg-[#FFFDF8] text-blue-600 shadow-xs dark:bg-slate-700 dark:text-blue-400'
                     : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200'
                 }`}
               >
@@ -523,7 +523,7 @@ export const ScanResultView: React.FC<ScanResultViewProps> = ({
                 onClick={() => setViewTab('patterns')}
                 className={`flex items-center gap-1.5 rounded-lg px-3 py-1 text-xs font-semibold transition ${
                   viewTab === 'patterns'
-                    ? 'bg-white text-blue-600 shadow-xs dark:bg-slate-700 dark:text-blue-400'
+                    ? 'bg-[#FFFDF8] text-blue-600 shadow-xs dark:bg-slate-700 dark:text-blue-400'
                     : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200'
                 }`}
               >
@@ -562,14 +562,14 @@ export const ScanResultView: React.FC<ScanResultViewProps> = ({
               value={text}
               onChange={(e) => setText(e.target.value)}
               placeholder="No text detected. You can type or paste here, or adjust contrast and rescan."
-              className="flex-1 w-full resize-none font-mono text-sm leading-relaxed text-slate-800 dark:text-slate-200 bg-slate-50 dark:bg-slate-950/60 p-3 sm:p-4 rounded-xl border border-slate-200 dark:border-slate-800 focus:border-blue-500 focus:outline-none"
+              className="flex-1 w-full resize-none font-mono text-sm leading-relaxed text-slate-800 dark:text-slate-200 bg-[#FAF6EE] dark:bg-slate-950/60 p-3 sm:p-4 rounded-xl border border-[#E8E0D0] dark:border-slate-800 focus:border-blue-500 focus:outline-none"
             />
           )}
         </div>
       </div>
 
       {/* Bottom Floating Export & Action Bar */}
-      <div className="border-t border-slate-200 bg-white/95 backdrop-blur-md px-3 py-2.5 sm:px-4 dark:border-slate-800 dark:bg-slate-900/95">
+      <div className="border-t border-[#E8E0D0] bg-[#FFFDF8]/95 backdrop-blur-md px-3 py-2.5 sm:px-4 dark:border-slate-800 dark:bg-slate-900/95">
         <div className="flex flex-wrap items-center justify-between gap-2">
           {/* Left actions: Copy & Share */}
           <div className="flex items-center gap-1.5">

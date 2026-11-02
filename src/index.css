@@ -1,1 +1,24 @@
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --bg-milky: #FAF6EE;
+    --bg-milky-card: #FFFDF8;
+    --bg-milky-subtle: #F3EDE0;
+    --border-milky: #E8E0D0;
+  }
+
+  html,
+  body {
+    background-color: #FAF6EE;
+    color: #1e293b;
+  }
+
+  html.dark,
+  html.dark body {
+    background-color: #020617;
+    color: #f1f5f9;
+  }
+}

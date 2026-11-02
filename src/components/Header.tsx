@@ -50,7 +50,7 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-30 w-full border-b border-slate-200/80 bg-white/90 backdrop-blur-md dark:border-slate-800/80 dark:bg-slate-900/90 transition-colors">
+    <header className="sticky top-0 z-30 w-full border-b border-[#E8E0D0] bg-[#FFFDF8]/90 backdrop-blur-md dark:border-slate-800/80 dark:bg-slate-900/90 transition-colors">
       <div className="mx-auto flex max-w-4xl items-center justify-between px-3 py-2.5 sm:px-4">
         {/* Logo and Brand */}
         <div className="flex items-center gap-2.5">
@@ -70,12 +70,12 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* Center Navigation Tabs */}
-        <div className="flex items-center rounded-xl bg-slate-100 p-1 dark:bg-slate-800">
+        <div className="flex items-center rounded-xl bg-[#F3EDE0] p-1 dark:bg-slate-800">
           <button
             onClick={() => setActiveTab('scan')}
             className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
               activeTab === 'scan'
-                ? 'bg-white text-blue-600 shadow-xs dark:bg-slate-700 dark:text-blue-400'
+                ? 'bg-[#FFFDF8] text-blue-600 shadow-xs dark:bg-slate-700 dark:text-blue-400'
                 : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200'
             }`}
           >
@@ -86,14 +86,14 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={() => setActiveTab('history')}
             className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
               activeTab === 'history'
-                ? 'bg-white text-blue-600 shadow-xs dark:bg-slate-700 dark:text-blue-400'
+                ? 'bg-[#FFFDF8] text-blue-600 shadow-xs dark:bg-slate-700 dark:text-blue-400'
                 : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200'
             }`}
           >
             <History className="h-3.5 w-3.5" />
             <span>History</span>
             {historyCount > 0 && (
-              <span className="ml-0.5 rounded-full bg-slate-200 px-1.5 py-0.2 text-[10px] font-bold text-slate-700 dark:bg-slate-600 dark:text-slate-300">
+              <span className="ml-0.5 rounded-full bg-[#E8E0D0] px-1.5 py-0.2 text-[10px] font-bold text-slate-700 dark:bg-slate-600 dark:text-slate-300">
                 {historyCount}
               </span>
             )}

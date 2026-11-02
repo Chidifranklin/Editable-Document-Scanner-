@@ -45,22 +45,18 @@ export default function App() {
   const [cameraMode, setCameraMode] = useState<'single' | 'batch'>('batch');
   const [activeBatchIndex, setActiveBatchIndex] = useState<number>(0);
 
-  // Theme state
+  // Theme state (default to Milky light mode unless user explicitly selects dark mode)
   const [darkMode, setDarkMode] = useState<boolean>(() => {
-    return (
-      localStorage.getItem('scantext_theme') === 'dark' ||
-      (!('scantext_theme' in localStorage) &&
-        window.matchMedia('(prefers-color-scheme: dark)').matches)
-    );
+    return localStorage.getItem('scantext_milky_theme') === 'dark';
   });
 
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add('dark');
-      localStorage.setItem('scantext_theme', 'dark');
+      localStorage.setItem('scantext_milky_theme', 'dark');
     } else {
       document.documentElement.classList.remove('dark');
-      localStorage.setItem('scantext_theme', 'light');
+      localStorage.setItem('scantext_milky_theme', 'light');
     }
   }, [darkMode]);
 
@@ -445,7 +441,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 flex flex-col font-sans transition-colors">
+    <div className="min-h-screen bg-[#FAF6EE] text-slate-900 dark:bg-slate-950 dark:text-slate-100 flex flex-col font-sans transition-colors">
       {/* Sticky Header */}
       <Header
         activeTab={activeTab}
@@ -510,7 +506,7 @@ export default function App() {
           /* High Polish Scanning Loading & Progress State */
           <div className="flex-1 flex flex-col items-center justify-center p-6 text-center max-w-md mx-auto">
             {scanError ? (
-              <div className="space-y-4 rounded-2xl bg-white p-6 shadow-xl dark:bg-slate-900 border border-red-200 dark:border-red-900/60">
+              <div className="space-y-4 rounded-2xl bg-[#FFFDF8] p-6 shadow-xl dark:bg-slate-900 border border-red-200 dark:border-red-900/60">
                 <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-red-100 dark:bg-red-950 text-red-600">
                   <AlertCircle className="h-7 w-7" />
                 </div>
@@ -670,7 +666,7 @@ export default function App() {
               </div>
 
               {/* OCR Engine & Language Options Card */}
-              <div className="rounded-2xl border border-slate-200 bg-white p-3.5 shadow-xs dark:border-slate-800 dark:bg-slate-900 space-y-3">
+              <div className="rounded-2xl border border-[#E8E0D0] bg-[#FFFDF8] p-3.5 shadow-xs dark:border-slate-800 dark:bg-slate-900 space-y-3">
                 <div className="flex items-center justify-between text-xs font-semibold text-slate-700 dark:text-slate-300">
                   <span>Recognition Settings</span>
                   <span className="text-[10px] text-slate-400">Customizable</span>
@@ -682,7 +678,7 @@ export default function App() {
                     <label className="block text-[10px] font-medium text-slate-500 mb-1">
                       Language
                     </label>
-                    <div className="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-slate-50 p-2 dark:border-slate-700 dark:bg-slate-800">
+                    <div className="flex items-center gap-1.5 rounded-xl border border-[#E8E0D0] bg-[#F3EDE0]/70 p-2 dark:border-slate-700 dark:bg-slate-800">
                       <Globe className="h-3.5 w-3.5 text-blue-500 shrink-0" />
                       <select
                         value={selectedLanguage}
@@ -701,9 +697,9 @@ export default function App() {
                   {/* Recognition Engine Preference */}
                   <div>
                     <label className="block text-[10px] font-medium text-slate-500 mb-1">
-                      Engine Engine
+                      Engine
                     </label>
-                    <div className="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-slate-50 p-2 dark:border-slate-700 dark:bg-slate-800">
+                    <div className="flex items-center gap-1.5 rounded-xl border border-[#E8E0D0] bg-[#F3EDE0]/70 p-2 dark:border-slate-700 dark:bg-slate-800">
                       {ocrEngine === 'cloud' && isOnline ? (
                         <Zap className="h-3.5 w-3.5 text-blue-500 shrink-0" />
                       ) : (
@@ -726,14 +722,14 @@ export default function App() {
                 </div>
 
                 {/* Document Type hint */}
-                <div className="flex items-center gap-2 pt-1 border-t border-slate-100 dark:border-slate-800">
+                <div className="flex items-center gap-2 pt-1 border-t border-[#EAE2D3] dark:border-slate-800">
                   <span className="text-[11px] text-slate-500">Mode:</span>
                   <button
                     onClick={() => setOcrMode('document')}
                     className={`rounded-lg px-2.5 py-1 text-xs font-medium transition ${
                       ocrMode === 'document'
                         ? 'bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300'
-                        : 'text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800'
+                        : 'text-slate-600 hover:bg-[#F3EDE0] dark:text-slate-400 dark:hover:bg-slate-800'
                     }`}
                   >
                     Printed Document / Book
@@ -743,7 +739,7 @@ export default function App() {
                     className={`rounded-lg px-2.5 py-1 text-xs font-medium transition ${
                       ocrMode === 'handwriting'
                         ? 'bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300'
-                        : 'text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800'
+                        : 'text-slate-600 hover:bg-[#F3EDE0] dark:text-slate-400 dark:hover:bg-slate-800'
                     }`}
                   >
                     Handwritten Notes
@@ -759,7 +755,7 @@ export default function App() {
                 <div className="grid grid-cols-3 gap-2">
                   <button
                     onClick={() => loadDemoSample('document')}
-                    className="flex flex-col items-center justify-center p-2.5 rounded-xl border border-slate-200 bg-white hover:border-blue-400 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-blue-500 active:scale-95 transition shadow-2xs"
+                    className="flex flex-col items-center justify-center p-2.5 rounded-xl border border-[#E8E0D0] bg-[#FFFDF8] hover:border-blue-400 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-blue-500 active:scale-95 transition shadow-2xs"
                   >
                     <FileText className="h-4 w-4 text-blue-600 mb-1" />
                     <span className="text-[11px] font-medium text-slate-700 dark:text-slate-200">
@@ -768,7 +764,7 @@ export default function App() {
                   </button>
                   <button
                     onClick={() => loadDemoSample('receipt')}
-                    className="flex flex-col items-center justify-center p-2.5 rounded-xl border border-slate-200 bg-white hover:border-blue-400 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-blue-500 active:scale-95 transition shadow-2xs"
+                    className="flex flex-col items-center justify-center p-2.5 rounded-xl border border-[#E8E0D0] bg-[#FFFDF8] hover:border-blue-400 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-blue-500 active:scale-95 transition shadow-2xs"
                   >
                     <FileUp className="h-4 w-4 text-emerald-600 mb-1" />
                     <span className="text-[11px] font-medium text-slate-700 dark:text-slate-200">
@@ -777,7 +773,7 @@ export default function App() {
                   </button>
                   <button
                     onClick={() => loadDemoSample('handwriting')}
-                    className="flex flex-col items-center justify-center p-2.5 rounded-xl border border-slate-200 bg-white hover:border-blue-400 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-blue-500 active:scale-95 transition shadow-2xs"
+                    className="flex flex-col items-center justify-center p-2.5 rounded-xl border border-[#E8E0D0] bg-[#FFFDF8] hover:border-blue-400 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-blue-500 active:scale-95 transition shadow-2xs"
                   >
                     <Sparkles className="h-4 w-4 text-amber-500 mb-1" />
                     <span className="text-[11px] font-medium text-slate-700 dark:text-slate-200">
@@ -850,7 +846,7 @@ export default function App() {
                     setCameraMode('single');
                     setShowCameraModal(true);
                   }}
-                  className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white p-3 text-xs font-semibold text-slate-700 shadow-2xs hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800 active:scale-95 transition"
+                  className="flex items-center justify-center gap-2 rounded-xl border border-[#E8E0D0] bg-[#FFFDF8] p-3 text-xs font-semibold text-slate-700 shadow-2xs hover:bg-[#F3EDE0] dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800 active:scale-95 transition"
                 >
                   <Camera className="h-4 w-4 text-slate-600 dark:text-slate-300" />
                   <span>Single Photo</span>
@@ -858,7 +854,7 @@ export default function App() {
 
                 <button
                   onClick={() => imageInputRef.current?.click()}
-                  className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white p-3 text-xs font-semibold text-slate-700 shadow-2xs hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800 active:scale-95 transition"
+                  className="flex items-center justify-center gap-2 rounded-xl border border-[#E8E0D0] bg-[#FFFDF8] p-3 text-xs font-semibold text-slate-700 shadow-2xs hover:bg-[#F3EDE0] dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800 active:scale-95 transition"
                 >
                   <Upload className="h-4 w-4 text-blue-500" />
                   <span>Upload Photos</span>
@@ -874,7 +870,7 @@ export default function App() {
 
                 <button
                   onClick={() => pdfInputRef.current?.click()}
-                  className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white p-3 text-xs font-semibold text-slate-700 shadow-2xs hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800 active:scale-95 transition"
+                  className="flex items-center justify-center gap-2 rounded-xl border border-[#E8E0D0] bg-[#FFFDF8] p-3 text-xs font-semibold text-slate-700 shadow-2xs hover:bg-[#F3EDE0] dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800 active:scale-95 transition"
                 >
                   <FileUp className="h-4 w-4 text-red-500" />
                   <span>Upload PDF</span>
